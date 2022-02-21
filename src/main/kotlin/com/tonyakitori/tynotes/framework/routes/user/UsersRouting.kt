@@ -1,12 +1,6 @@
 package com.tonyakitori.tynotes.framework.routes.user
 
-import com.tonyakitori.tynotes.domain.exceptions.PagePropertyNotFound
-import com.tonyakitori.tynotes.domain.filters.PaginationFilter
-import com.tonyakitori.tynotes.domain.exceptions.SizePropertyNotFound
 import com.tonyakitori.tynotes.domain.filters.MainFilters
-import com.tonyakitori.tynotes.domain.filters.SearchFilter
-import com.tonyakitori.tynotes.domain.filters.SortFilter
-import com.tonyakitori.tynotes.domain.filters.SortTypes
 import com.tonyakitori.tynotes.framework.utils.handlePaginationFilters
 import com.tonyakitori.tynotes.framework.utils.handleSearchFilters
 import com.tonyakitori.tynotes.framework.utils.handleSortFilters
@@ -74,6 +68,19 @@ fun Route.createUserRouting() {
         } catch (e: Exception) {
             e.printStackTrace()
             call.application.log.error("Error in get user: ${e.message}")
+            handleUserExceptions(e)
+        }
+    }
+
+    put("/{userId}"){
+        call.application.log.info("Update user by Id...")
+        val userId = call.parameters["userId"]?.toIntOrNull()
+        try {
+            userService.updateUserById(userId, call.receive())
+            call.respond(HttpStatusCode.OK, mapOf("message" to "Ok"))
+        }catch (e: Exception){
+            e.printStackTrace()
+            call.application.log.error("Error in update user: ${e.message}")
             handleUserExceptions(e)
         }
     }

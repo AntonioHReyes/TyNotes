@@ -30,6 +30,8 @@ class UsersRepositoryImpl(private val usersLocalSource: UsersLocalResource): Use
     override fun getUserById(userId: Int): User? = usersLocalSource.getUserById(userId)
     override fun getUserByUserNameOrEmail(userNameOrEmail: String): User? = usersLocalSource.getUserByUserNameOrEmail(userNameOrEmail)
     override fun createUser(user: User) = usersLocalSource.createUser(user)
+    override fun updateUserById(userId: Int, user: User) = usersLocalSource.updateUserById(userId, user)
+
     override fun deleteUserById(userId: Int) = usersLocalSource.deleteUserById(userId)
 
 

@@ -12,6 +12,7 @@ interface UsersRepository {
     fun getUserById(userId: Int): User?
     fun getUserByUserNameOrEmail(userNameOrEmail: String): User?
     fun createUser(user: User)
+    fun updateUserById(userId: Int, user: User)
     fun deleteUserById(userId: Int)
 
 }

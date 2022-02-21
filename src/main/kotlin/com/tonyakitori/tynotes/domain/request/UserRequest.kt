@@ -9,3 +9,10 @@ data class UserRequest(
     val birthDate: String,
     val phoneNumber: String?
 )
+
+data class UserRequestUpdate(
+    val name: String,
+    val lastName: String,
+    val birthDate: String,
+    val phoneNumber: String?
+)

@@ -8,6 +8,7 @@ import com.tonyakitori.tynotes.domain.exceptions.UserNameOrEmailExist
 import com.tonyakitori.tynotes.domain.exceptions.UserNotFound
 import com.tonyakitori.tynotes.domain.filters.MainFilters
 import com.tonyakitori.tynotes.domain.request.UserRequest
+import com.tonyakitori.tynotes.domain.request.UserRequestUpdate
 import com.tonyakitori.tynotes.domain.response.PaginationContainer
 import com.tonyakitori.tynotes.domain.response.UserResponse
 import com.tonyakitori.tynotes.services.UserService
@@ -59,6 +60,21 @@ class UserServiceImpl(private val userRepo: UsersRepository) : UserService {
         val user = userRepo.getUserById(userId) ?: throw UserNotFound()
 
         return user.toUserResponse()
+    }
+
+    override fun updateUserById(userId: Int?, userRequestUpdate: UserRequestUpdate) {
+        logger.info("Update user by id: $userId")
+
+        if(userId == null){
+            throw UserIdNotValid()
+        }
+
+        userRepo.updateUserById(userId, User(
+            name = userRequestUpdate.name,
+            lastName = userRequestUpdate.lastName,
+            birthDate = LocalDate.parse(userRequestUpdate.birthDate, DateTimeFormatter.ISO_DATE),
+            phoneNumber = userRequestUpdate.phoneNumber,
+        ))
     }
 
     override fun deleteUserById(userId: Int?) {

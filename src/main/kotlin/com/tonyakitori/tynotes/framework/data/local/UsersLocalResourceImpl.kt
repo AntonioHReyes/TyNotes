@@ -66,6 +66,13 @@ class UsersLocalResourceImpl(database: DatabaseManager) : UsersLocalResource {
         logger.info("User created successfully")
     }
 
+    override fun updateUserById(userId: Int, user: User) = userDao.updateUserById(userId, UserEntity{
+        name = user.name
+        lastName = user.lastName
+        birthDate = user.birthDate
+        phoneNumber = user.phoneNumber
+    })
+
     override fun deleteUserById(userId: Int) = userDao.deleteUserById(userId)
     override fun getTotalRowsAndPages(mainFilters: MainFilters): Tuple2<Int, Int>  = userDao.getTotalRowsAndPages(mainFilters)
 

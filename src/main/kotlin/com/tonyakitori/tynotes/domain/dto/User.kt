@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter
 
 data class User(
     val id: Int? = null,
-    val userName: String,
-    val email: String,
-    val hash: String,
+    val userName: String = "",
+    val email: String = "",
+    val hash: String = "",
     val name: String,
     val lastName: String,
     val birthDate: LocalDate?,

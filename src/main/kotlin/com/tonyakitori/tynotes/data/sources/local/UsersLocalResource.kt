@@ -11,6 +11,7 @@ interface UsersLocalResource {
     fun getUserByUserNameOrEmail(userNameOrEmail: String): User?
     fun getUserById(userId: Int): User?
     fun createUser(user: User)
+    fun updateUserById(userId: Int, user: User)
     fun deleteUserById(userId: Int)
 
     fun getTotalRowsAndPages(mainFilters: MainFilters): Tuple2<Int, Int>

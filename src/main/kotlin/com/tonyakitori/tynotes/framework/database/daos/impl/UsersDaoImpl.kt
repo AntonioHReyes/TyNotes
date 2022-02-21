@@ -99,6 +99,20 @@ class UsersDaoImpl(private val database: Database) : UsersDao {
         }
     }
 
+    override fun updateUserById(userId: Int, user: UserEntity) {
+        database.useTransaction {
+            val userFound = users.find { (it.id eq userId) and (it.enabled) } ?: throw UserNotFound()
+            userFound.apply {
+                name = user.name
+                lastName = user.lastName
+                birthDate = user.birthDate
+                phoneNumber = user.phoneNumber
+            }
+
+            userFound.flushChanges()
+        }
+    }
+
     override fun deleteUserById(userId: Int) {
         database.useTransaction {
             val user = users.find { it.id eq userId } ?: throw UserNotFound()
