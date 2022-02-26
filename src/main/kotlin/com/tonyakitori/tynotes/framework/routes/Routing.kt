@@ -1,5 +1,6 @@
 package com.tonyakitori.tynotes.framework.routes
 
+import com.tonyakitori.tynotes.framework.routes.auth.createAuthRouting
 import com.tonyakitori.tynotes.framework.routes.user.createUserRouting
 import io.ktor.application.*
 import io.ktor.features.*
@@ -24,5 +25,6 @@ fun Application.configureRouting() {
         }
 
         route("/users"){ createUserRouting() }
+        route("/auth"){ createAuthRouting() }
     }
 }

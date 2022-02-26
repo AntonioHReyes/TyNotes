@@ -76,6 +76,5 @@ class UsersLocalResourceImpl(database: DatabaseManager) : UsersLocalResource {
     override fun deleteUserById(userId: Int) = userDao.deleteUserById(userId)
     override fun getTotalRowsAndPages(mainFilters: MainFilters): Tuple2<Int, Int>  = userDao.getTotalRowsAndPages(mainFilters)
 
-
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 }

@@ -14,5 +14,4 @@ interface UsersRepository {
     fun createUser(user: User)
     fun updateUserById(userId: Int, user: User)
     fun deleteUserById(userId: Int)
-
 }

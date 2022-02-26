@@ -23,7 +23,8 @@ data class User(
     val failLoginAttempts: Int = 0,
     val creationDate: Instant = Instant.now(),
     val lastLogin: LocalDateTime = LocalDateTime.now(),
-    val lastJwt: String? = ""
+    val lastJwt: String? = "",
+    val roles: List<String> = listOf()
 ){
     fun toUserResponse(): UserResponse{
         return UserResponse(

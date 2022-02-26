@@ -1,5 +1,6 @@
 package com.tonyakitori.tynotes.services.impl
 
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.tonyakitori.tynotes.data.repository.UsersRepository
 import com.tonyakitori.tynotes.domain.dto.User
 import com.tonyakitori.tynotes.domain.exceptions.UserFoundButDisabled
@@ -40,7 +41,7 @@ class UserServiceImpl(private val userRepo: UsersRepository) : UserService {
         val userDao = User(
             userName= user.email,
             email= user.email,
-            hash= user.password,
+            hash= BCrypt.withDefaults().hashToString(12, user.password.toCharArray()),
             name= user.name,
             lastName= user.lastName,
             birthDate= LocalDate.parse(user.birthDate, DateTimeFormatter.ISO_DATE),

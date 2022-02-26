@@ -18,7 +18,7 @@ interface UserEntity: Entity<UserEntity> {
 
     companion object : Entity.Factory<UserEntity>()
 
-    val id: Int?
+    var id: Int?
     var userName: String
     var email: String
     var hash: String
@@ -35,6 +35,8 @@ interface UserEntity: Entity<UserEntity> {
     var creationDate: Instant
     var lastLogin: LocalDateTime
     var lastJwt: String?
+
+    var permissions: List<String>
 
     fun toUser(): User {
         return User(
@@ -54,7 +56,8 @@ interface UserEntity: Entity<UserEntity> {
             failLoginAttempts= this.failLoginAttempts,
             creationDate= this.creationDate,
             lastLogin= this.lastLogin,
-            lastJwt= this.lastJwt
+            lastJwt= this.lastJwt,
+            roles = this.permissions
         )
     }
 }

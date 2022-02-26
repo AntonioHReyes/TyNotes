@@ -13,7 +13,6 @@ interface UsersDao {
     fun createUser(userEntity: UserEntity): Int?
     fun updateUserById(userId: Int, user: UserEntity)
     fun deleteUserById(userId: Int)
-
     fun getTotalRowsAndPages(mainFilters: MainFilters): Tuple2<Int, Int>
 
 }

@@ -1,5 +1,6 @@
 package com.tonyakitori.tynotes
 
+import com.tonyakitori.tynotes.framework.plugins.configureSecurity
 import com.tonyakitori.tynotes.framework.plugins.configureSerialization
 import com.tonyakitori.tynotes.framework.plugins.startKoin
 import com.tonyakitori.tynotes.framework.routes.configureRouting
@@ -9,7 +10,8 @@ import io.ktor.server.netty.*
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.main() {
+    startKoin()
+    configureSecurity()
     configureRouting()
     configureSerialization()
-    startKoin()
 }

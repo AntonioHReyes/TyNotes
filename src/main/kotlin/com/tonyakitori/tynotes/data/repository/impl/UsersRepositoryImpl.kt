@@ -11,7 +11,6 @@ import com.tonyakitori.tynotes.domain.response.UserResponse
 class UsersRepositoryImpl(private val usersLocalSource: UsersLocalResource): UsersRepository {
 
     override fun getAllUsers(mainFilters: MainFilters): List<User> = usersLocalSource.getAllUsers(mainFilters)
-
     override fun getAllUsersByPage(mainFilters: MainFilters): PaginationContainer<List<UserResponse>> {
        val (totalRows, totalPages) = usersLocalSource.getTotalRowsAndPages(mainFilters)
         if(mainFilters.paginationFilter == null){
@@ -26,13 +25,9 @@ class UsersRepositoryImpl(private val usersLocalSource: UsersLocalResource): Use
             totalElements = totalRows
         )
     }
-
     override fun getUserById(userId: Int): User? = usersLocalSource.getUserById(userId)
     override fun getUserByUserNameOrEmail(userNameOrEmail: String): User? = usersLocalSource.getUserByUserNameOrEmail(userNameOrEmail)
     override fun createUser(user: User) = usersLocalSource.createUser(user)
     override fun updateUserById(userId: Int, user: User) = usersLocalSource.updateUserById(userId, user)
-
     override fun deleteUserById(userId: Int) = usersLocalSource.deleteUserById(userId)
-
-
 }

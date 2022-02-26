@@ -1,6 +1,7 @@
 package com.tonyakitori.tynotes.framework.utils
 
 import com.google.gson.stream.MalformedJsonException
+import com.tonyakitori.tynotes.domain.exceptions.BadCredentials
 import com.tonyakitori.tynotes.domain.exceptions.PagePropertyNotFound
 import com.tonyakitori.tynotes.domain.exceptions.ProfileNotFound
 import com.tonyakitori.tynotes.domain.exceptions.SizePropertyNotFound
@@ -37,9 +38,16 @@ suspend fun PipelineContext<*, ApplicationCall>.handleUserExceptions(e: Exceptio
         is UserIdNotValid -> this.call.respond(HttpStatusCode.BadRequest, callSimpleMessage(e.message))
         is UserNotFound -> this.call.respond(HttpStatusCode.NotFound, callSimpleMessage(e.message))
         is UserNameOrEmailExist -> this.call.respond(HttpStatusCode.BadRequest, callSimpleMessage(e.message))
-        is UserFoundButDisabled -> this.call.respond(HttpStatusCode.Conflict, mapOf("message" to e.message))
+        is UserFoundButDisabled -> this.call.respond(HttpStatusCode.Conflict, callSimpleMessage(e.message))
         is UserIdNotGenerated -> this.call.respond(HttpStatusCode.InternalServerError, callSimpleMessage(e.message))
         is ProfileNotFound -> this.call.respond(HttpStatusCode.InternalServerError, callSimpleMessage(e.message))
         else -> handlePaginationExceptions(e)
+    }
+}
+
+suspend fun PipelineContext<*, ApplicationCall>.handleAuthExceptions(e: Exception){
+    when(e){
+        is BadCredentials -> this.call.respond(HttpStatusCode.Unauthorized, callSimpleMessage(e.message))
+        else -> handleGeneralExceptions(e)
     }
 }
