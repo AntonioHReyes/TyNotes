@@ -1,6 +1,7 @@
 package com.tonyakitori.tynotes.framework.utils
 
 import com.google.gson.stream.MalformedJsonException
+import com.tonyakitori.tynotes.domain.exceptions.AuthorizationException
 import com.tonyakitori.tynotes.domain.exceptions.BadCredentials
 import com.tonyakitori.tynotes.domain.exceptions.PagePropertyNotFound
 import com.tonyakitori.tynotes.domain.exceptions.ProfileNotFound
@@ -16,11 +17,11 @@ import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.util.pipeline.*
 
-
 suspend fun PipelineContext<*, ApplicationCall>.handleGeneralExceptions(e: Exception){
     when (e) {
         is MalformedJsonException -> this.call.respond(HttpStatusCode.BadRequest, callSimpleMessage("Json invalid"))
         is NullPointerException -> call.respond(HttpStatusCode.BadRequest, callSimpleMessage(e.toString()))
+        is AuthorizationException -> this.call.respond(HttpStatusCode.Forbidden, callSimpleMessage(e.message))
         else -> call.respond(HttpStatusCode.InternalServerError, callSimpleMessage(e.toString()))
     }
 }

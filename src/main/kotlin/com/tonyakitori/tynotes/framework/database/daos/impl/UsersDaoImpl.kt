@@ -163,7 +163,7 @@ class UsersDaoImpl(private val database: Database) : UsersDao {
             }
 
         userEntity.permissions = listOfPermissions
-        return userEntity
+        return if(userEntity.id == null) null else userEntity
     }
 
     override fun createUser(userEntity: UserEntity): Int? {
